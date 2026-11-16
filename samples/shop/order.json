@@ -1,0 +1,16 @@
+{
+  "$schema": "./order.schema.json",
+  "id": "ORD-004211",
+  "status": "paid",
+  "placedAt": "2026-11-02T09:41:00Z",
+  "customer": {
+    "email": "ada@example.com",
+    "name": "Ada Example",
+    "billing": { "street": "1 Main Street", "city": "Springfield", "country": "US" }
+  },
+  "lines": [
+    { "sku": "MUG-0001", "qty": 2, "price": 9.5 },
+    { "sku": "TEE-0042", "qty": 1, "price": 19.99, "options": { "size": "M" } }
+  ],
+  "payment": { "method": "card", "last4": "4242" }
+}

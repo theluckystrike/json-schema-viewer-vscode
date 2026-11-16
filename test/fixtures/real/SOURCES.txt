@@ -1,0 +1,22 @@
+Real third-party files used by the tests and the real-app gate. Downloaded 16 Nov 2026, unchanged.
+
+SchemaStore/schemastore, Apache License 2.0 (https://github.com/SchemaStore/schemastore/blob/master/LICENSE)
+  package.schema.json          https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json (draft-07, remote $ref)
+  tsconfig.schema.json         https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/tsconfig.json (471 KB)
+  github-workflow.schema.json  https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/github-workflow.json
+
+OAI/OpenAPI-Specification, Apache License 2.0 (https://github.com/OAI/OpenAPI-Specification/blob/main/LICENSE)
+  openapi-3.0.schema.yaml      https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/_archive_/schemas/v3.0/schema.yaml (draft-04, YAML)
+  petstore.yaml                https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/_archive_/schemas/v3.0/pass/petstore.yaml
+  uspto.yaml                   https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/_archive_/schemas/v3.0/pass/uspto.yaml
+
+actions/starter-workflows, MIT License, Copyright (c) 2020 GitHub
+  node.js.yml                  https://raw.githubusercontent.com/actions/starter-workflows/main/ci/node.js.yml
+
+microsoft/vscode, MIT License, Copyright (c) 2015 - present Microsoft Corporation (copied from the JSON editor listing's fixtures)
+  vscode-src-tsconfig.json     https://raw.githubusercontent.com/microsoft/vscode/main/src/tsconfig.json
+  git-extension-package.json   https://raw.githubusercontent.com/microsoft/vscode/main/extensions/git/package.json
+
+JSON Schema 2020-12 meta-schema and its 7 vocabulary files, as shipped in the npm package ajv 8.20.0 (MIT),
+dist/refs/json-schema-2020-12/schema.json and meta/*.json (originally json-schema.org)
+  meta-2020-12/schema.json, meta-2020-12/meta/*.json

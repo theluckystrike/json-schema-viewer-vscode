@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/shop/order.schema.json",
+  "title": "Order",
+  "description": "An order placed in the web shop, from the cart to the delivery.",
+  "type": "object",
+  "required": ["id", "customer", "lines", "status"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Order number, printed on the invoice.",
+      "pattern": "^ORD-[0-9]{6}$",
+      "examples": ["ORD-004211"]
+    },
+    "status": {
+      "description": "Where the order is now.",
+      "enum": ["cart", "paid", "packed", "shipped", "delivered", "cancelled"],
+      "default": "cart"
+    },
+    "placedAt": { "type": "string", "format": "date-time", "description": "When the customer paid." },
+    "customer": { "$ref": "#/$defs/customer" },
+    "lines": {
+      "type": "array",
+      "description": "One line per product.",
+      "minItems": 1,
+      "maxItems": 100,
+      "items": { "$ref": "#/$defs/line" }
+    },
+    "shipTo": { "$ref": "address.schema.json", "description": "Delivery address. Leave out to ship to the billing address." },
+    "coupon": { "type": ["string", "null"], "minLength": 4, "maxLength": 20 },
+    "gift": {
+      "type": "object",
+      "properties": {
+        "wrap": { "type": "boolean", "default": false },
+        "message": { "type": "string", "maxLength": 200 }
+      },
+      "additionalProperties": false
+    },
+    "payment": {
+      "oneOf": [
+        { "$ref": "#/$defs/card" },
+        { "$ref": "#/$defs/invoice" }
+      ]
+    },
+    "notes": { "type": "string", "deprecated": true, "description": "Old free-text field. Use gift.message." }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "customer": {
+      "type": "object",
+      "required": ["email"],
+      "properties": {
+        "email": { "type": "string", "format": "email" },
+        "name": { "type": "string", "minLength": 1 },
+        "billing": { "$ref": "address.schema.json" }
+      }
+    },
+    "line": {
+      "type": "object",
+      "required": ["sku", "qty", "price"],
+      "properties": {
+        "sku": { "type": "string", "pattern": "^[A-Z]{3}-[0-9]{4}$" },
+        "qty": { "type": "integer", "minimum": 1, "maximum": 999 },
+        "price": { "type": "number", "exclusiveMinimum": 0, "multipleOf": 0.01, "description": "Price of one item in EUR." },
+        "options": { "type": "object", "additionalProperties": { "type": "string" } }
+      }
+    },
+    "card": {
+      "type": "object",
+      "required": ["method", "last4"],
+      "properties": {
+        "method": { "const": "card" },
+        "last4": { "type": "string", "pattern": "^[0-9]{4}$" }
+      }
+    },
+    "invoice": {
+      "type": "object",
+      "required": ["method", "dueDays"],
+      "properties": {
+        "method": { "const": "invoice" },
+        "dueDays": { "type": "integer", "enum": [14, 30, 60] }
+      }
+    }
+  }
+}

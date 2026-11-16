@@ -1,0 +1,366 @@
+{
+  "name": "zovo-json-schema-viewer",
+  "displayName": "JSON Schema Viewer & Validator",
+  "description": "JSON Schema viewer and validator for VS Code: read a schema (draft-04 to 2020-12, JSON or YAML) as docs with a property tree and $ref followed across local files, then check JSON or YAML files against it with each error on its line. Offline, no account.",
+  "version": "0.1.0",
+  "publisher": "zovo",
+  "license": "MIT",
+  "icon": "icon.png",
+  "galleryBanner": {
+    "color": "#1B3A4B",
+    "theme": "dark"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/theluckystrike/json-schema-viewer-vscode"
+  },
+  "bugs": {
+    "url": "https://github.com/theluckystrike/json-schema-viewer-vscode/issues"
+  },
+  "homepage": "https://github.com/theluckystrike/json-schema-viewer-vscode#readme",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Linters",
+    "Visualization",
+    "Other"
+  ],
+  "keywords": [
+    "json schema",
+    "json",
+    "schema",
+    "validator",
+    "documentation"
+  ],
+  "main": "./src/extension.js",
+  "activationEvents": [
+    "onUri",
+    "onLanguage:json",
+    "onLanguage:jsonc",
+    "onLanguage:yaml"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    },
+    "virtualWorkspaces": true
+  },
+  "contributes": {
+    "customEditors": [
+      {
+        "viewType": "jsonSchemaViewer.docs",
+        "displayName": "JSON Schema Docs",
+        "selector": [
+          {
+            "filenamePattern": "*.schema.json"
+          },
+          {
+            "filenamePattern": "*.schema.yaml"
+          },
+          {
+            "filenamePattern": "*.schema.yml"
+          }
+        ],
+        "priority": "option"
+      }
+    ],
+    "commands": [
+      {
+        "command": "jsonSchemaViewer.open",
+        "title": "Open as JSON Schema Docs",
+        "category": "JSON Schema",
+        "icon": "$(book)"
+      },
+      {
+        "command": "jsonSchemaViewer.openAsText",
+        "title": "Open the Schema Text Beside",
+        "category": "JSON Schema",
+        "icon": "$(code)"
+      },
+      {
+        "command": "jsonSchemaViewer.validate",
+        "title": "Validate Against a JSON Schema",
+        "category": "JSON Schema"
+      },
+      {
+        "command": "jsonSchemaViewer.chooseSchema",
+        "title": "Choose the Schema for This File and Validate",
+        "category": "JSON Schema"
+      },
+      {
+        "command": "jsonSchemaViewer.clearProblems",
+        "title": "Clear the Validation Problems",
+        "category": "JSON Schema"
+      },
+      {
+        "command": "jsonSchemaViewer.openSample",
+        "title": "Open the Sample Schema",
+        "category": "JSON Schema"
+      },
+      {
+        "command": "jsonSchemaViewer.openWalkthrough",
+        "title": "Get Started",
+        "category": "JSON Schema"
+      },
+      {
+        "command": "jsonSchemaViewer.moreViewers",
+        "title": "More free tools by Zovo",
+        "category": "JSON Schema"
+      },
+      {
+        "command": "jsonSchemaViewer.supportDeveloper",
+        "title": "Support the developer",
+        "category": "JSON Schema"
+      },
+      {
+        "command": "jsonSchemaViewer.sample",
+        "title": "Generate Sample JSON or Test Data (Pro)",
+        "category": "JSON Schema"
+      },
+      {
+        "command": "jsonSchemaViewer.export",
+        "title": "Export the Docs as Markdown or HTML (Pro)",
+        "category": "JSON Schema"
+      },
+      {
+        "command": "jsonSchemaViewer.diff",
+        "title": "Schema Diff: Compare with an Older Version (Pro)",
+        "category": "JSON Schema"
+      },
+      {
+        "command": "jsonSchemaViewer.zovoPro.sample",
+        "title": "Zovo Pro: Generate sample JSON from this schema"
+      },
+      {
+        "command": "jsonSchemaViewer.zovoPro.export",
+        "title": "Zovo Pro: Export the schema docs as Markdown or HTML"
+      },
+      {
+        "command": "jsonSchemaViewer.zovoPro.diff",
+        "title": "Zovo Pro: Compare this schema with an older version"
+      },
+      {
+        "command": "jsonSchemaViewer.getPro",
+        "title": "Get Zovo Pro (USD 19 once, all Zovo extensions)",
+        "category": "Zovo Pro"
+      },
+      {
+        "command": "jsonSchemaViewer.payWithPayPal",
+        "title": "Pay for Zovo Pro with PayPal (USD 19, team of 5 USD 59)",
+        "category": "Zovo Pro"
+      },
+      {
+        "command": "jsonSchemaViewer.unlockWithSponsors",
+        "title": "I already paid: unlock with GitHub Sponsors",
+        "category": "Zovo Pro"
+      },
+      {
+        "command": "jsonSchemaViewer.enterLicenseKey",
+        "title": "Enter Zovo Pro license key",
+        "category": "Zovo Pro"
+      },
+      {
+        "command": "jsonSchemaViewer.removeLicense",
+        "title": "Remove Zovo Pro from this editor",
+        "category": "Zovo Pro"
+      },
+      {
+        "command": "jsonSchemaViewer.payByCard",
+        "title": "Pay for Zovo Pro by card (USD 19)",
+        "category": "Zovo Pro"
+      },
+      {
+        "command": "jsonSchemaViewer.enterKey",
+        "title": "Enter a key",
+        "category": "Zovo Pro"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "jsonSchemaViewer.open",
+          "when": "jsonSchemaViewer.isSchema && activeEditor == workbench.editors.files.textFileEditor",
+          "group": "navigation@6"
+        },
+        {
+          "command": "jsonSchemaViewer.openAsText",
+          "when": "activeCustomEditorId == 'jsonSchemaViewer.docs'",
+          "group": "navigation@1"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "jsonSchemaViewer.validate",
+          "when": "resourceLangId == json || resourceLangId == jsonc || resourceLangId == yaml",
+          "group": "jsonSchema@1"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "jsonSchemaViewer.open",
+          "when": "resourceFilename =~ /\\.schema\\.(json|ya?ml)$/i && !explorerResourceIsFolder",
+          "group": "navigation@9"
+        },
+        {
+          "command": "jsonSchemaViewer.validate",
+          "when": "resourceFilename =~ /\\.(json|jsonc|json5|ya?ml)$/i && !explorerResourceIsFolder",
+          "group": "navigation@10"
+        },
+        {
+          "command": "jsonSchemaViewer.zovoPro.sample",
+          "when": "resourceFilename =~ /\\.schema\\.(json|ya?ml)$/i && !explorerResourceIsFolder && config.jsonSchemaViewer.showProTools",
+          "group": "zovoPro@1"
+        },
+        {
+          "command": "jsonSchemaViewer.zovoPro.export",
+          "when": "resourceFilename =~ /\\.schema\\.(json|ya?ml)$/i && !explorerResourceIsFolder && config.jsonSchemaViewer.showProTools",
+          "group": "zovoPro@2"
+        },
+        {
+          "command": "jsonSchemaViewer.zovoPro.diff",
+          "when": "resourceFilename =~ /\\.schema\\.(json|ya?ml)$/i && !explorerResourceIsFolder && config.jsonSchemaViewer.showProTools",
+          "group": "zovoPro@3"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "jsonSchemaViewer.openAsText",
+          "when": "activeCustomEditorId == 'jsonSchemaViewer.docs'"
+        },
+        {
+          "command": "jsonSchemaViewer.sample",
+          "when": "config.jsonSchemaViewer.showProTools"
+        },
+        {
+          "command": "jsonSchemaViewer.export",
+          "when": "config.jsonSchemaViewer.showProTools"
+        },
+        {
+          "command": "jsonSchemaViewer.diff",
+          "when": "config.jsonSchemaViewer.showProTools"
+        },
+        {
+          "command": "jsonSchemaViewer.zovoPro.sample",
+          "when": "false"
+        },
+        {
+          "command": "jsonSchemaViewer.zovoPro.export",
+          "when": "false"
+        },
+        {
+          "command": "jsonSchemaViewer.zovoPro.diff",
+          "when": "false"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "JSON Schema Viewer & Validator",
+      "properties": {
+        "jsonSchemaViewer.schemas": {
+          "type": "array",
+          "default": [],
+          "markdownDescription": "Local schemas for files that have no `$schema` of their own. Each entry: `fileMatch` (glob patterns matched against the path in the workspace, for example `config/*.yaml`) and `url` (a schema file path, relative to the workspace folder). Web addresses are never downloaded and are skipped.",
+          "items": {
+            "type": "object",
+            "required": [
+              "fileMatch",
+              "url"
+            ],
+            "properties": {
+              "fileMatch": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "url": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "jsonSchemaViewer.validateOnSave": {
+          "type": "boolean",
+          "default": true,
+          "description": "Check a JSON or YAML file again each time it is saved, after you validated it once in this window. Also checks again when one of its schema files is saved."
+        },
+        "jsonSchemaViewer.showProTools": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show the Zovo Pro tools (sample JSON, docs export, schema diff) in the Command Palette, the Explorer menu and the docs toolbar. Everything free stays visible."
+        },
+        "jsonSchemaViewer.askForRating": {
+          "type": "boolean",
+          "default": true,
+          "description": "Ask once for a Marketplace rating after schemas opened without an error at two times at least 30 minutes apart. \"Later\" asks one more time after 7 days, \"No thanks\" never asks again. Nothing is sent anywhere."
+        },
+        "jsonSchemaViewer.showSupportLinks": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show the small Rate, More free tools and Zovo Pro links at the bottom of the docs view. Nothing is sent anywhere."
+        }
+      }
+    },
+    "walkthroughs": [
+      {
+        "id": "jsonSchemaViewer.start",
+        "title": "Get started with the JSON Schema Viewer & Validator",
+        "description": "Read JSON Schemas as docs and check JSON or YAML files against them, inside VS Code.",
+        "steps": [
+          {
+            "id": "open",
+            "title": "Open a schema as docs",
+            "description": "Right-click a .schema.json or .schema.yaml file in the Explorer and choose Open as JSON Schema Docs, or click the book button in the title bar of an open schema. Any other JSON or YAML file opens the same way from the Command Palette. The file still opens as text by default.\n[Open the sample schema](command:jsonSchemaViewer.openSample)",
+            "media": {
+              "image": "images/screenshot.png",
+              "altText": "An order schema open in the JSON Schema docs view: the property tree with types, required marks and rules, and the details of the selected property."
+            },
+            "completionEvents": [
+              "onCommand:jsonSchemaViewer.openSample"
+            ]
+          },
+          {
+            "id": "browse",
+            "title": "Tree, search and jump to line",
+            "description": "Open a row to see its properties; a $ref opens in place, also when it points into another file. Type in the search box to find a property anywhere in the schema. Double-click a row to open its line in the schema text.",
+            "media": {
+              "markdown": "walkthrough/browse.md"
+            }
+          },
+          {
+            "id": "validate",
+            "title": "Validate JSON and YAML files",
+            "description": "Right-click a JSON or YAML file and choose Validate Against a JSON Schema. The schema comes from the file's $schema, the jsonSchemaViewer.schemas setting or a pick, and every error goes to the Problems panel with its line.",
+            "media": {
+              "markdown": "walkthrough/validate.md"
+            }
+          },
+          {
+            "id": "pro",
+            "title": "Sample JSON, docs export and schema diff",
+            "description": "Zovo Pro tools, 1 free try each: generate sample JSON or test data from the schema, export the docs as Markdown or one HTML page, or compare the schema with an older version to list its breaking changes.",
+            "media": {
+              "markdown": "walkthrough/pro.md"
+            }
+          },
+          {
+            "id": "zovo-related",
+            "title": "Tools that often go with JSON Schemas",
+            "description": "If your project also has JSON to edit, XML schemas or OpenAPI files, these free Zovo extensions open them. A link opens the extension page, and you choose there whether to install it.\n[JSON Editor, Tree & Form View](command:extension.open?%5B%22zovo.zovo-json-editor%22%5D)\n[XSD Viewer & Schema Diagram](command:extension.open?%5B%22zovo.zovo-xsd-viewer%22%5D)\n[Swagger Editor & OpenAPI](command:extension.open?%5B%22zovo.swagger-openapi-viewer%22%5D)",
+            "media": {
+              "markdown": "walkthrough/related.md"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "scripts": {
+    "test": "node scripts/test.js",
+    "package": "npx -y @vscode/vsce@3 package --no-dependencies"
+  },
+  "sponsor": {
+    "url": "https://github.com/sponsors/theluckystrike/sponsorships?tier_id=679878"
+  }
+}

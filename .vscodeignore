@@ -1,0 +1,12 @@
+.git/**
+.gitignore
+test/**
+scripts/**
+.github/**
+node_modules/**
+dist/**
+*.vsix
+icon.svg
+**/*.bak*
+package-lock.json
+RELEASE.md

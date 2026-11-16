@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/shop/address.schema.json",
+  "title": "Address",
+  "description": "A postal address.",
+  "type": "object",
+  "required": ["street", "city", "country"],
+  "properties": {
+    "street": { "type": "string", "minLength": 1 },
+    "city": { "type": "string" },
+    "postcode": { "type": "string", "maxLength": 10 },
+    "country": { "type": "string", "pattern": "^[A-Z]{2}$", "description": "Two-letter country code (ISO 3166-1)." }
+  }
+}

@@ -1,0 +1,16 @@
+$schema: ./order.schema.json
+id: ORD-42
+status: lost
+customer:
+  name: Bob
+lines:
+  - sku: MUG-0001
+    qty: 0
+    price: 9.5
+  - sku: tee
+    qty: 1
+    price: -3
+payment:
+  method: card
+  last4: "12"
+colour: blue
